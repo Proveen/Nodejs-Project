@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        /* Left Content (Half Screen) */
+        .left-content {
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+        /* Right Content (Half Screen) */
+        .right-content {
+            padding: 20px;
+        }
+        /* Centered Heading */
+        .center-heading {
+            text-align: center;
+            
+        }
+        /* Background Image */
+        body {
+            background-image: url('background.jpg'); /* Specify the path to your image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Ensure the background covers the full viewport height */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        .container-fluid {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="center-heading">
+                    <h1>Student Management System</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Left Content (Half Screen) -->
+            <div class="col-md-6 left-content">
+                <!-- Placeholder for Graph 1 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Graph 1 (Pie Chart)
+                    </div>
+                    <div class="card-body">
+                        <!-- Embed the first graph -->
+                        <iframe src="piechart.html" frameborder="0" width="100%" height="300"></iframe>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Graph 2 -->
+                <div class="card">
+                    <div class="card-header">
+                        Graph 2 (Bar Graph)
+                    </div>
+                    <div class="card-body">
+                        <!-- Embed the second graph -->
+                        <iframe src="chart.html" frameborder="0" width="100%" height="300"></iframe>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Graph 3 -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Graph 3 (Doughnut Graph)
+                    </div>
+                    <div class="card-body">
+                        <!-- Embed the third graph -->
+                        <iframe src="doughnut_chart.html" frameborder="0" width="100%" height="300"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Content (Half Screen) -->
+            <div class="col-md-6 right-content">
+                <!-- Student Form -->
+                <div class="card">
+                    <div class="card-header">
+                        Add New Student
+                    </div>
+                    <div class="card-body">
+                        <form id="studentForm">
+                            <div class="form-group">
+                                <label for="studentName">Student Name:</label>
+                                <input type="text" class="form-control" id="studentName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="departmentId">Department ID:</label>
+                                <input type="text" class="form-control" id="departmentId" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary id="submitButton">Add or Update Student</button>
+                        </form>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Student Table -->
+                <div class="card">
+                    <div class="card-header">
+                        Student List
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Department ID</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <!-- Student rows will be added dynamically here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

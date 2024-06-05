@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grades Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <canvas id="gradesChart"></canvas>
+
+    <script>
+        // Fetch data from the API
+        fetch('http://localhost:3000/api/studentMarks')
+            .then(response => response.json())
+            .then(data => createChart(data))
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Function to create the chart
+        function createChart(data) {
+            const studentNames = data.map(entry => entry.student_name);
+            const grades = data.map(entry => mapGradeToNumber(entry.grade));
+
+            const ctx = document.getElementById('gradesChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: studentNames,
+                    datasets: [{
+                        label: 'Grades',
+                        data: grades,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Grades'
+                            },
+                            ticks: {
+                                // Custom ticks to display grades
+                                callback: function(value, index, values) {
+                                    return mapNumberToGrade(value);
+                                }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Students'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to map grades to numerical values
+        function mapGradeToNumber(grade) {
+            switch (grade) {
+                case 'A+':
+                    return 5;
+                case 'A':
+                    return 4;
+                case 'A-':
+                    return 3.5;
+                case 'B+':
+                    return 3;
+                case 'B':
+                    return 2.5;
+                case 'B-':
+                    return 2;
+                case 'C+':
+                    return 1.5;
+                case 'C':
+                    return 1;
+                case 'D':
+                    return 0.5;
+                default:
+                    return 0;
+            }
+        }
+
+        // Function to map numerical values back to grades
+        function mapNumberToGrade(number) {
+            if (number >= 5) {
+                return 'A+';
+            } else if (number >= 4) {
+                return 'A';
+            } else if (number >= 3.5) {
+                return 'A-';
+            } else if (number >= 3) {
+                return 'B+';
+            } else if (number >= 2.5) {
+                return 'B';
+            } else if (number >= 2) {
+                return 'B-';
+            } else if (number >= 1.5) {
+                return 'C+';
+            } else if (number >= 1) {
+                return 'C';
+            } else if (number >= 0.5) {
+                return 'D';
+            } else {
+                return 'F';
+            }
+        }
+    </script>
+</body>
+
+</html>

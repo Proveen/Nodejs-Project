@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <canvas id="pieChart"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch data from API
+            fetch('http://localhost:3000/api/studentMarks')
+                .then(response => response.json())
+                .then(data => {
+                    // Process data for chart
+                    const gradesCount = {};
+                    data.forEach(entry => {
+                        const grade = entry.grade;
+                        gradesCount[grade] = gradesCount[grade] ? gradesCount[grade] + 1 : 1;
+                    });
+
+                    const grades = Object.keys(gradesCount);
+                    const counts = Object.values(gradesCount);
+
+                    // Create pie chart
+                    const ctx = document.getElementById('pieChart').getContext('2d');
+                    const pieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: grades,
+                            datasets: [{
+                                data: counts,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.5)', // Red
+                                    'rgba(54, 162, 235, 0.5)', // Blue
+                                    'rgba(255, 206, 86, 0.5)', // Yellow
+                                    'rgba(75, 192, 192, 0.5)', // Green
+                                    'rgba(153, 102, 255, 0.5)', // Purple
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Student Grade Distribution',
+                                    font: {
+                                        size: 18,
+                                        weight: 'bold'
+                                    }
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    labels: {
+                                        fontColor: 'black',
+                                        fontSize: 12
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching grades data:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
